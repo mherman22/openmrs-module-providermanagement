@@ -26,8 +26,8 @@ import org.openmrs.Person;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.RelationshipType;
-import org.openmrs.module.providermanagement.Provider;
-import org.openmrs.module.providermanagement.ProviderRole;
+import org.openmrs.Provider;
+import org.openmrs.ProviderRole;
 import org.openmrs.module.providermanagement.api.db.ProviderManagementDAO;
 import org.openmrs.module.providermanagement.suggestion.ProviderSuggestion;
 import org.openmrs.module.providermanagement.suggestion.SupervisionSuggestion;
@@ -55,54 +55,6 @@ public class HibernateProviderManagementDAO implements ProviderManagementDAO {
      */
     public DbSessionFactory getSessionFactory() {
 	    return sessionFactory;
-    }
-
-    @Override
-    public List<ProviderRole> getAllProviderRoles(boolean includeRetired) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProviderRole.class);
-        if (!includeRetired) {
-            criteria.add(Restrictions.eq("retired", false));
-        }
-        return (List<ProviderRole>) criteria.list();
-    }
-
-    @Override
-    public ProviderRole getProviderRole(Integer id) {
-        return (ProviderRole) sessionFactory.getCurrentSession().get(ProviderRole.class, id);
-    }
-
-    @Override
-    public ProviderRole getProviderRoleByUuid(String uuid) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProviderRole.class);
-        criteria.add(Restrictions.eq("uuid", uuid));
-        return (ProviderRole) criteria.uniqueResult();
-    }
-
-    @Override
-    public List<ProviderRole> getProviderRolesByRelationshipType(RelationshipType relationshipType) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProviderRole.class);
-        criteria.add(Restrictions.eq("retired", false));
-        criteria = criteria.createCriteria("relationshipTypes").add(Restrictions.eq("relationshipTypeId", relationshipType.getId()));
-        return (List<ProviderRole>) criteria.list();
-    }
-
-    @Override
-    public List<ProviderRole> getProviderRolesBySuperviseeProviderRole(ProviderRole providerRole) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProviderRole.class);
-        criteria.add(Restrictions.eq("retired", false));
-        criteria = criteria.createCriteria("superviseeProviderRoles").add(Restrictions.eq("providerRoleId", providerRole.getId()));
-        return (List<ProviderRole>) criteria.list();
-    }
-
-    @Override
-    public ProviderRole  saveProviderRole(ProviderRole role) {
-        sessionFactory.getCurrentSession().saveOrUpdate(role);
-        return role;
-    }
-
-    @Override
-    public void deleteProviderRole(ProviderRole role) {
-        sessionFactory.getCurrentSession().delete(role);
     }
 
     @Override

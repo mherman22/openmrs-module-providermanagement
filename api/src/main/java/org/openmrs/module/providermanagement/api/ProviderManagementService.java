@@ -21,9 +21,9 @@ import org.openmrs.Relationship;
 import org.openmrs.RelationshipType;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.providermanagement.Provider;
+import org.openmrs.Provider;
 import org.openmrs.module.providermanagement.ProviderManagementConstants;
-import org.openmrs.module.providermanagement.ProviderRole;
+import org.openmrs.ProviderRole;
 import org.openmrs.module.providermanagement.exception.DateCannotBeInFutureException;
 import org.openmrs.module.providermanagement.exception.InvalidRelationshipTypeException;
 import org.openmrs.module.providermanagement.exception.InvalidSupervisorException;
@@ -33,7 +33,6 @@ import org.openmrs.module.providermanagement.exception.PersonIsNotProviderExcept
 import org.openmrs.module.providermanagement.exception.ProviderAlreadyAssignedToSupervisorException;
 import org.openmrs.module.providermanagement.exception.ProviderDoesNotSupportRelationshipTypeException;
 import org.openmrs.module.providermanagement.exception.ProviderNotAssignedToSupervisorException;
-import org.openmrs.module.providermanagement.exception.ProviderRoleInUseException;
 import org.openmrs.module.providermanagement.exception.SourceProviderSameAsDestinationProviderException;
 
 import java.util.Date;
@@ -46,110 +45,6 @@ import java.util.List;
 public interface ProviderManagementService extends OpenmrsService {
 
     // TODO: make sure we are handling excluding/including retired metadata in a logical manner
-
-    /*
-      * Basic methods for operating on provider roles
-      */
-
-    /**
-     * Gets all Provider Roles in the database
-     *
-     * @param includeRetired whether or not to include retired provider roles
-     * @return list of all provider roles in the system
-     */
-    @Authorized(value = { ProviderManagementConstants.PROVIDER_MANAGEMENT_API_PRIVILEGE, ProviderManagementConstants.PROVIDER_MANAGEMENT_API_READ_ONLY_PRIVILEGE }, requireAll = false)
-    public List<ProviderRole> getAllProviderRoles(boolean includeRetired);
-
-    /**
-     * Gets restricted Provider Roles in the database
-     *
-     * @param includeRetired whether or not to include retired provider roles
-     * @return list of restricted provider roles in the system
-     */
-    @Authorized(value = { ProviderManagementConstants.PROVIDER_MANAGEMENT_API_PRIVILEGE, ProviderManagementConstants.PROVIDER_MANAGEMENT_API_READ_ONLY_PRIVILEGE }, requireAll = false)
-    public List<ProviderRole> getRestrictedProviderRoles(boolean includeRetired);
-
-    /**
-     * Gets the provider role referenced by the specified id
-     *
-     * @param id
-     * @return providerRole
-     */
-    @Authorized(value = { ProviderManagementConstants.PROVIDER_MANAGEMENT_API_PRIVILEGE, ProviderManagementConstants.PROVIDER_MANAGEMENT_API_READ_ONLY_PRIVILEGE }, requireAll = false)
-    public ProviderRole getProviderRole(Integer id);
-
-    /**
-     * Gets the provider role referenced by the specified uui
-     *
-     * @param uuid
-     * @return providerRole
-     */
-    @Authorized(value = { ProviderManagementConstants.PROVIDER_MANAGEMENT_API_PRIVILEGE, ProviderManagementConstants.PROVIDER_MANAGEMENT_API_READ_ONLY_PRIVILEGE }, requireAll = false)
-    public ProviderRole getProviderRoleByUuid(String uuid);
-
-    /**
-     * Returns all the provider roles that support the specified relationship type
-     * (Excludes retired provider roles)
-     *
-     * @param relationshipType
-     * @return the provider roles that support that relationship type
-     * @should throw exception if relationshipType is null
-     */
-    @Authorized(value = { ProviderManagementConstants.PROVIDER_MANAGEMENT_API_PRIVILEGE, ProviderManagementConstants.PROVIDER_MANAGEMENT_API_READ_ONLY_PRIVILEGE }, requireAll = false)
-    public List<ProviderRole> getProviderRolesByRelationshipType(RelationshipType relationshipType);
-
-    /**
-     * Returns all provider roles that are able to supervise the specified provider role
-     * (Excludes retired provider roles)
-     *
-     * @param providerRole
-     * @return the provider roles that can supervise the specified provider role
-     * @should throw exception if providerRole is null
-     */
-    @Authorized(value = { ProviderManagementConstants.PROVIDER_MANAGEMENT_API_PRIVILEGE, ProviderManagementConstants.PROVIDER_MANAGEMENT_API_READ_ONLY_PRIVILEGE }, requireAll = false)
-    public List<ProviderRole> getProviderRolesBySuperviseeProviderRole(ProviderRole providerRole);
-
-    /**
-     * Saves/updates a provider role
-     *
-     * @param role the provider role to save
-     * @return the saved provider role
-     */
-    @Authorized(ProviderManagementConstants.PROVIDER_MANAGEMENT_API_PRIVILEGE)
-    public ProviderRole saveProviderRole(ProviderRole role);
-
-    /**
-     * Retires a provider role
-     * @param role the role to retire
-     * @param reason the reason the role is being retired
-     */
-    @Authorized(ProviderManagementConstants.PROVIDER_MANAGEMENT_API_PRIVILEGE)
-    public void retireProviderRole(ProviderRole role, String reason);
-
-    /**
-     * Unretires a provider role
-     * @param role the role to unretire
-     */
-    @Authorized(ProviderManagementConstants.PROVIDER_MANAGEMENT_API_PRIVILEGE)
-    public void unretireProviderRole(ProviderRole role);
-    
-    /**
-     * Deletes a provider role
-     *
-     * @param role the provider role to delete
-     */
-    @Authorized(ProviderManagementConstants.PROVIDER_MANAGEMENT_API_PRIVILEGE)
-    public void purgeProviderRole(ProviderRole role)
-            throws ProviderRoleInUseException;
-
-    /**
-     * Get all the relationship types associated with provider roles
-     *
-     * @param includeRetired whether or not to include retired relationship types
-     * @return all the relationship types associated with provider roles
-     */
-    @Authorized(value = { ProviderManagementConstants.PROVIDER_MANAGEMENT_API_PRIVILEGE, ProviderManagementConstants.PROVIDER_MANAGEMENT_API_READ_ONLY_PRIVILEGE }, requireAll = false)
-    public List<RelationshipType> getAllProviderRoleRelationshipTypes(boolean includeRetired);
 
     /**
      * Basic methods for operating on providers using the new provider roles
