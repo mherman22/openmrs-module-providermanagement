@@ -32,7 +32,7 @@ import java.util.Set;
  * For example, a "Community Health Worker" role might support an "Accompagnateur" relationship,
  * and "Head Surgeon" role might be able to oversee a person with Provider Role of "Surgeon".
  */
-    public class ProviderRole extends BaseOpenmrsMetadata implements Serializable {
+    public class ProviderManagementProviderRole extends BaseOpenmrsMetadata implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
@@ -44,7 +44,7 @@ import java.util.Set;
 
         // the provider roles this provider role can supervise
         @DisableHandlers(handlerTypes = { RequiredDataHandler.class })  // disable all required data handlers (save, retire, etc)
-        private Set<ProviderRole> superviseeProviderRoles;
+        private Set<ProviderManagementProviderRole> superviseeProviderRoles;
 
         // the attribute types associated with this role
         @DisableHandlers(handlerTypes = { RequiredDataHandler.class }) // disable all required data handlers (save, retire, etc)
@@ -67,7 +67,7 @@ import java.util.Set;
 
         @Override
         public String toString() {
-            return "ProviderRole{" +
+            return "ProviderManagementProviderRole{" +
                     "providerRoleId=" + providerRoleId +
                     ", name=" + this.getName() +
                     '}';
@@ -99,11 +99,11 @@ import java.util.Set;
             this.relationshipTypes = relationshipTypes;
         }
 
-        public Set<ProviderRole> getSuperviseeProviderRoles() {
+        public Set<ProviderManagementProviderRole> getSuperviseeProviderRoles() {
             return superviseeProviderRoles;
         }
 
-        public void setSuperviseeProviderRoles(Set<ProviderRole> superviseeProviderRoles) {
+        public void setSuperviseeProviderRoles(Set<ProviderManagementProviderRole> superviseeProviderRoles) {
             this.superviseeProviderRoles = superviseeProviderRoles;
         }
 

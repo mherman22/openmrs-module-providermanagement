@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.providermanagement.ProviderRole;
+import org.openmrs.module.providermanagement.ProviderManagementProviderRole;
 import org.openmrs.module.providermanagement.api.ProviderManagementService;
 import org.openmrs.module.webservices.rest.web.v1_0.controller.MainResourceControllerTest;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -31,7 +31,7 @@ public class ProviderRoleControllerTest extends MainResourceControllerTest {
 
     @Test
     public void voidProvider_shouldRetireAProvider() throws Exception {
-        ProviderRole providerRole = Context.getService(ProviderManagementService.class).getProviderRoleByUuid(getUuid());
+        ProviderManagementProviderRole providerRole = Context.getService(ProviderManagementService.class).getProviderRoleByUuid(getUuid());
         Assert.assertFalse(providerRole.isRetired());
 
         MockHttpServletRequest request = request(RequestMethod.DELETE, getURI() + "/" + getUuid() );
@@ -48,7 +48,7 @@ public class ProviderRoleControllerTest extends MainResourceControllerTest {
         String json = "{\"description\":\"new description\"}";
         handle(newPostRequest(getURI() + "/" + getUuid(), json));
 
-        ProviderRole updatedProviderRole = (ProviderRole) Context.getService(ProviderManagementService.class).getProviderRoleByUuid(getUuid());
+        ProviderManagementProviderRole updatedProviderRole = (ProviderManagementProviderRole) Context.getService(ProviderManagementService.class).getProviderRoleByUuid(getUuid());
         Assert.assertEquals("new description", updatedProviderRole.getDescription());
     }
 

@@ -27,7 +27,7 @@ import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.RelationshipType;
 import org.openmrs.module.providermanagement.Provider;
-import org.openmrs.module.providermanagement.ProviderRole;
+import org.openmrs.module.providermanagement.ProviderManagementProviderRole;
 import org.openmrs.module.providermanagement.api.db.ProviderManagementDAO;
 import org.openmrs.module.providermanagement.suggestion.ProviderSuggestion;
 import org.openmrs.module.providermanagement.suggestion.SupervisionSuggestion;
@@ -58,55 +58,55 @@ public class HibernateProviderManagementDAO implements ProviderManagementDAO {
     }
 
     @Override
-    public List<ProviderRole> getAllProviderRoles(boolean includeRetired) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProviderRole.class);
+    public List<ProviderManagementProviderRole> getAllProviderRoles(boolean includeRetired) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProviderManagementProviderRole.class);
         if (!includeRetired) {
             criteria.add(Restrictions.eq("retired", false));
         }
-        return (List<ProviderRole>) criteria.list();
+        return (List<ProviderManagementProviderRole>) criteria.list();
     }
 
     @Override
-    public ProviderRole getProviderRole(Integer id) {
-        return (ProviderRole) sessionFactory.getCurrentSession().get(ProviderRole.class, id);
+    public ProviderManagementProviderRole getProviderRole(Integer id) {
+        return (ProviderManagementProviderRole) sessionFactory.getCurrentSession().get(ProviderManagementProviderRole.class, id);
     }
 
     @Override
-    public ProviderRole getProviderRoleByUuid(String uuid) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProviderRole.class);
+    public ProviderManagementProviderRole getProviderRoleByUuid(String uuid) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProviderManagementProviderRole.class);
         criteria.add(Restrictions.eq("uuid", uuid));
-        return (ProviderRole) criteria.uniqueResult();
+        return (ProviderManagementProviderRole) criteria.uniqueResult();
     }
 
     @Override
-    public List<ProviderRole> getProviderRolesByRelationshipType(RelationshipType relationshipType) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProviderRole.class);
+    public List<ProviderManagementProviderRole> getProviderRolesByRelationshipType(RelationshipType relationshipType) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProviderManagementProviderRole.class);
         criteria.add(Restrictions.eq("retired", false));
         criteria = criteria.createCriteria("relationshipTypes").add(Restrictions.eq("relationshipTypeId", relationshipType.getId()));
-        return (List<ProviderRole>) criteria.list();
+        return (List<ProviderManagementProviderRole>) criteria.list();
     }
 
     @Override
-    public List<ProviderRole> getProviderRolesBySuperviseeProviderRole(ProviderRole providerRole) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProviderRole.class);
+    public List<ProviderManagementProviderRole> getProviderRolesBySuperviseeProviderRole(ProviderManagementProviderRole providerRole) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProviderManagementProviderRole.class);
         criteria.add(Restrictions.eq("retired", false));
         criteria = criteria.createCriteria("superviseeProviderRoles").add(Restrictions.eq("providerRoleId", providerRole.getId()));
-        return (List<ProviderRole>) criteria.list();
+        return (List<ProviderManagementProviderRole>) criteria.list();
     }
 
     @Override
-    public ProviderRole  saveProviderRole(ProviderRole role) {
+    public ProviderManagementProviderRole  saveProviderRole(ProviderManagementProviderRole role) {
         sessionFactory.getCurrentSession().saveOrUpdate(role);
         return role;
     }
 
     @Override
-    public void deleteProviderRole(ProviderRole role) {
+    public void deleteProviderRole(ProviderManagementProviderRole role) {
         sessionFactory.getCurrentSession().delete(role);
     }
 
     @Override
-    public List<Person> getProviders(String name, String identifier, PersonAddress personAddress, PersonAttribute personAttribute, List<ProviderRole> providerRoles, Boolean includeRetired) {
+    public List<Person> getProviders(String name, String identifier, PersonAddress personAddress, PersonAttribute personAttribute, List<ProviderManagementProviderRole> providerRoles, Boolean includeRetired) {
 
         // first, create the provider criteria
          Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Provider.class);
@@ -184,7 +184,7 @@ public class HibernateProviderManagementDAO implements ProviderManagementDAO {
     }
 
     @Override
-    public List<Provider> getProvidersByProviderRoles(List<ProviderRole> roles, boolean includeRetired) {
+    public List<Provider> getProvidersByProviderRoles(List<ProviderManagementProviderRole> roles, boolean includeRetired) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Provider.class);
         criteria.add(Restrictions.in("providerRole", roles));
         if (!includeRetired) {
@@ -251,7 +251,7 @@ public class HibernateProviderManagementDAO implements ProviderManagementDAO {
     }
 
     @Override
-    public List<SupervisionSuggestion> getSupervisionSuggestionsByProviderRoleAndSuggestionType(ProviderRole providerRole, SupervisionSuggestionType suggestionType) {
+    public List<SupervisionSuggestion> getSupervisionSuggestionsByProviderRoleAndSuggestionType(ProviderManagementProviderRole providerRole, SupervisionSuggestionType suggestionType) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(SupervisionSuggestion.class);
         criteria.add(Restrictions.eq("retired", false));
         criteria.add(Restrictions.eq("providerRole", providerRole));

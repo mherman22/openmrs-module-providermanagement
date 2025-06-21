@@ -17,7 +17,7 @@ package org.openmrs.module.providermanagement.fragment.controller;
 import org.openmrs.ProviderAttributeType;
 import org.openmrs.RelationshipType;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.providermanagement.ProviderRole;
+import org.openmrs.module.providermanagement.ProviderManagementProviderRole;
 import org.openmrs.module.providermanagement.api.ProviderManagementService;
 import org.openmrs.ui.framework.annotation.BindParams;
 import org.openmrs.ui.framework.annotation.FragmentParam;
@@ -36,7 +36,7 @@ public class ProviderRoleFormFragmentController {
 
 
         // add any existing provider role to the form
-        ProviderRole providerRole = null;
+        ProviderManagementProviderRole providerRole = null;
 
         if (providerRoleId != null) {
             providerRole = Context.getService(ProviderManagementService.class).getProviderRole(providerRoleId);
@@ -49,7 +49,7 @@ public class ProviderRoleFormFragmentController {
         model.addAttribute("relationshipTypes", relationshipTypes);
 
         // add possible supervisee roles
-        List<ProviderRole> providerRoles = Context.getService(ProviderManagementService.class).getAllProviderRoles(false);
+        List<ProviderManagementProviderRole> providerRoles = Context.getService(ProviderManagementService.class).getAllProviderRoles(false);
         model.addAttribute("providerRoles", providerRoles);
 
         // add possible provider attributes
@@ -83,7 +83,7 @@ public class ProviderRoleFormFragmentController {
         }
     }
 
-    public FragmentActionResult saveProviderRole(@BindParams() ProviderRole providerRole) {
+    public FragmentActionResult saveProviderRole(@BindParams() ProviderManagementProviderRole providerRole) {
 
         try {
             Context.getService(ProviderManagementService.class).saveProviderRole(providerRole);

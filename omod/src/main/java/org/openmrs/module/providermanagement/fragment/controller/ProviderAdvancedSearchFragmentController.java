@@ -20,8 +20,8 @@ import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.providermanagement.ProviderManagementGlobalProperties;
+import org.openmrs.module.providermanagement.ProviderManagementProviderRole;
 import org.openmrs.module.providermanagement.ProviderManagementWebUtil;
-import org.openmrs.module.providermanagement.ProviderRole;
 import org.openmrs.module.providermanagement.api.ProviderManagementService;
 import org.openmrs.module.providermanagement.exception.PersonIsNotProviderException;
 import org.openmrs.ui.framework.SimpleObject;
@@ -43,7 +43,7 @@ public class ProviderAdvancedSearchFragmentController {
 
         private PersonAddress personAddress = new PersonAddress();
 
-        private ProviderRole providerRole;
+        private ProviderManagementProviderRole providerRole;
 
         private PersonAttribute attribute = new PersonAttribute();
 
@@ -81,11 +81,11 @@ public class ProviderAdvancedSearchFragmentController {
             this.attribute = attribute;
         }
 
-        public ProviderRole getProviderRole() {
+        public ProviderManagementProviderRole getProviderRole() {
             return providerRole;
         }
 
-        public void setProviderRole(ProviderRole providerRole) {
+        public void setProviderRole(ProviderManagementProviderRole providerRole) {
             this.providerRole = providerRole;
         }
 
@@ -118,7 +118,7 @@ public class ProviderAdvancedSearchFragmentController {
         }
 
         // now fetch the results
-        List<ProviderRole> roles = new ArrayList<ProviderRole>();
+        List<ProviderManagementProviderRole> roles = new ArrayList<ProviderManagementProviderRole>();
         if (command.getProviderRole() != null) {
             roles.add(command.getProviderRole());
         }

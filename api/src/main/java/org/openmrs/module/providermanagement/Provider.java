@@ -16,13 +16,13 @@ package org.openmrs.module.providermanagement;
 
 public class Provider extends org.openmrs.Provider {
 
-    private ProviderRole providerRole;
+    private ProviderManagementProviderRole providerRole;
 
-    public ProviderRole getProviderRole() {
+    public ProviderManagementProviderRole getProviderRole() {
         return providerRole;
     }
 
-    public void setProviderRole(ProviderRole providerRole) {
+    public void setProviderRole(ProviderManagementProviderRole providerRole) {
         this.providerRole = providerRole;
     }
 }

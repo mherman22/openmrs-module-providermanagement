@@ -28,9 +28,9 @@ import org.openmrs.RelationshipType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.providermanagement.Provider;
 import org.openmrs.module.providermanagement.ProviderManagementGlobalProperties;
+import org.openmrs.module.providermanagement.ProviderManagementProviderRole;
 import org.openmrs.module.providermanagement.ProviderManagementUtils;
 import org.openmrs.module.providermanagement.ProviderManagementWebUtil;
-import org.openmrs.module.providermanagement.ProviderRole;
 import org.openmrs.module.providermanagement.api.ProviderManagementService;
 import org.openmrs.module.providermanagement.exception.PersonIsNotProviderException;
 import org.openmrs.ui.framework.SimpleObject;
@@ -63,7 +63,7 @@ public class ProviderEditFragmentController {
 
         private String identifier;
 
-        private ProviderRole providerRole;
+        private ProviderManagementProviderRole providerRole;
 
         private Map<String, String> attributeMap = new HashMap<String, String>();
 
@@ -75,11 +75,11 @@ public class ProviderEditFragmentController {
             this.identifier = identifier;
         }
 
-        public ProviderRole getProviderRole() {
+        public ProviderManagementProviderRole getProviderRole() {
             return providerRole;
         }
 
-        public void setProviderRole(ProviderRole providerRole) {
+        public void setProviderRole(ProviderManagementProviderRole providerRole) {
             this.providerRole = providerRole;
         }
 
@@ -321,7 +321,7 @@ public class ProviderEditFragmentController {
 
     public SimpleObject assignProviderRoleToPerson(
                                                @RequestParam(value = "person", required = true) Person person,
-                                               @RequestParam(value = "providerRole", required = true) ProviderRole providerRole,
+                                               @RequestParam(value = "providerRole", required = true) ProviderManagementProviderRole providerRole,
                                                @RequestParam(value = "identifier", required = true) String identifier,
                                                @SpringBean("providerManagementService") ProviderManagementService providerManagementService) {
 

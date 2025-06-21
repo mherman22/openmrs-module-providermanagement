@@ -6,7 +6,7 @@
 <hibernate-mapping package="org.openmrs.module.providermanagement">
 
 
-	<class name="ProviderRole" table="providermanagement_provider_role">
+	<class name="ProviderManagementProviderRole" table="providermanagement_provider_role">
 
         <id name="providerRoleId" type="int" column="provider_role_id" unsaved-value="0">
 			<generator class="native">
@@ -44,7 +44,7 @@
         <!-- link to supervisee roles -->
         <set name="superviseeProviderRoles" table="providermanagement_provider_role_supervisee_provider_role">
             <key column="provider_role_id" />
-            <many-to-many column="supervisee_provider_role_id" class="org.openmrs.module.providermanagement.ProviderRole" />
+            <many-to-many column="supervisee_provider_role_id" class="org.openmrs.module.providermanagement.ProviderManagementProviderRole" />
         </set>
 
         <!-- link to provider attribute types -->
